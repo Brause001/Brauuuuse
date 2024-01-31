@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anna and Elsa Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.50.1/dist/phaser.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      class AnnaElsaGame extends Phaser.Game {
+        constructor() {
+          super({
+            type: Phaser.CANVAS,
+            parent: "game-container",
+            width: 800,
+            height: 600,
+            physics: {
+              default: "arcade",
+              arcade: {
+                gravity: { y: 0 }
+              }
+            },
+            scene: {
+              preload: preload,
+              create: create,
+              update: update
+            }
+          });
+        }
+      }
+
+      function preload() {
+        this.load.image("elsa", "Bilder/Bot.jpg");
+        this.load.image("anna", "Bilder/Bot.jpg");
+        this.load.image("bullet", "bullet.png");
+      }
+
+      function create() {
+        r
+        this.cameras.main.backgroundColor.setTo(0xffffff);
+
+        // Set initial positions
+        const elsa = this.physics.add.sprite(
+          100,
+          this.game.config.height - 50 - 50,
+          "elsa"
+        );
+        const anna = this.physics.add.sprite(
+          100,
+          this.game.config.height - 2 * 50 - 50,
+          "anna"
+        );
+        const bullet = this.physics.add.sprite(
+          -100,
+          anna.y + 50 / 2,
+          "bullet"
+        );
+        bullet.setVisible(false);
+
+        // Set up event listener
+        this.input.on("pointerdown", function(pointer) {
+          // Start shooting
+          bullet.setVisible(true);
+          bullet.setPosition(anna.x + 50 / 2, anna.y + 50 / 2);
+          this.anims.play("bullet", true);
+        }, this);
+
+        // Collider
+        this.physics.add.collider(elsa, bullet, function() {
+          console.log("Game over!");
+          this.physics.pause;
+        }
+      
+    
